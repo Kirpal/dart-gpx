@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:xml/xml_events.dart';
 
 import 'model/bounds.dart';
@@ -101,7 +102,7 @@ class GpxReader {
               break;
             case GpxTagV11.time:
               metadata.time =
-                  DateTime.parse(_readString(iterator, GpxTagV11.time));
+                  DateTime.parse(_readString(iterator, GpxTagV11.time)!);
               break;
             case GpxTagV11.keywords:
               metadata.keywords = _readString(iterator, GpxTagV11.keywords);
@@ -156,7 +157,7 @@ class GpxReader {
               break;
 
             case GpxTagV11.number:
-              rte.number = int.parse(_readString(iterator, GpxTagV11.number));
+              rte.number = int.parse(_readString(iterator, GpxTagV11.number)!);
               break;
             case GpxTagV11.type:
               rte.type = _readString(iterator, GpxTagV11.type);
@@ -209,7 +210,7 @@ class GpxReader {
               break;
 
             case GpxTagV11.number:
-              trk.number = int.parse(_readString(iterator, GpxTagV11.number));
+              trk.number = int.parse(_readString(iterator, GpxTagV11.number)!);
               break;
             case GpxTagV11.type:
               trk.type = _readString(iterator, GpxTagV11.type);
@@ -255,15 +256,13 @@ class GpxReader {
 
             case GpxTagV11.fix:
               final fixAsString = _readString(iterator, GpxTagV11.fix);
-              wpt.fix = FixType.values.firstWhere(
-                  (e) =>
-                      e.toString().replaceFirst('.fix_', '.') ==
-                      'FixType.$fixAsString',
-                  orElse: () => null);
+              wpt.fix = FixType.values.firstWhereOrNull((e) =>
+                  e.toString().replaceFirst('.fix_', '.') ==
+                  'FixType.$fixAsString');
               break;
 
             case GpxTagV11.dGPSId:
-              wpt.dgpsid = int.parse(_readString(iterator, GpxTagV11.dGPSId));
+              wpt.dgpsid = int.parse(_readString(iterator, GpxTagV11.dGPSId)!);
               break;
 
             case GpxTagV11.name:
@@ -282,38 +281,38 @@ class GpxReader {
               wpt.links.add(_readLink(iterator));
               break;
             case GpxTagV11.hDOP:
-              wpt.hdop = double.parse(_readString(iterator, GpxTagV11.hDOP));
+              wpt.hdop = double.parse(_readString(iterator, GpxTagV11.hDOP)!);
               break;
             case GpxTagV11.vDOP:
-              wpt.vdop = double.parse(_readString(iterator, GpxTagV11.vDOP));
+              wpt.vdop = double.parse(_readString(iterator, GpxTagV11.vDOP)!);
               break;
             case GpxTagV11.pDOP:
-              wpt.pdop = double.parse(_readString(iterator, GpxTagV11.pDOP));
+              wpt.pdop = double.parse(_readString(iterator, GpxTagV11.pDOP)!);
               break;
             case GpxTagV11.ageOfData:
               wpt.ageofdgpsdata =
-                  double.parse(_readString(iterator, GpxTagV11.ageOfData));
+                  double.parse(_readString(iterator, GpxTagV11.ageOfData)!);
               break;
 
             case GpxTagV11.magVar:
               wpt.magvar =
-                  double.parse(_readString(iterator, GpxTagV11.magVar));
+                  double.parse(_readString(iterator, GpxTagV11.magVar)!);
               break;
             case GpxTagV11.geoidHeight:
               wpt.geoidheight =
-                  double.parse(_readString(iterator, GpxTagV11.geoidHeight));
+                  double.parse(_readString(iterator, GpxTagV11.geoidHeight)!);
               break;
 
             case GpxTagV11.sat:
-              wpt.sat = int.parse(_readString(iterator, GpxTagV11.sat));
+              wpt.sat = int.parse(_readString(iterator, GpxTagV11.sat)!);
               break;
 
             case GpxTagV11.elevation:
               wpt.ele =
-                  double.parse(_readString(iterator, GpxTagV11.elevation));
+                  double.parse(_readString(iterator, GpxTagV11.elevation)!);
               break;
             case GpxTagV11.time:
-              wpt.time = DateTime.parse(_readString(iterator, GpxTagV11.time));
+              wpt.time = DateTime.parse(_readString(iterator, GpxTagV11.time)!);
               break;
             case GpxTagV11.type:
               wpt.type = _readString(iterator, GpxTagV11.type);
@@ -333,7 +332,7 @@ class GpxReader {
     return wpt;
   }
 
-  String _readString(Iterator<XmlEvent> iterator, String tagName) {
+  String? _readString(Iterator<XmlEvent> iterator, String tagName) {
     final elm = iterator.current;
     if (!(elm is XmlStartElementEvent &&
         elm.name == tagName &&
@@ -385,8 +384,8 @@ class GpxReader {
     return trkseg;
   }
 
-  Map<String, String> _readExtensions(Iterator<XmlEvent> iterator) {
-    final exts = <String, String>{};
+  Map<String, String?> _readExtensions(Iterator<XmlEvent> iterator) {
+    final exts = <String, String?>{};
     final elm = iterator.current;
 
     /*if (elm is XmlStartElementEvent) {
@@ -494,7 +493,7 @@ class GpxReader {
             switch (val.name) {
               case GpxTagV11.year:
                 copyright.year =
-                    int.parse(_readString(iterator, GpxTagV11.year));
+                    int.parse(_readString(iterator, GpxTagV11.year)!);
                 break;
               case GpxTagV11.license:
                 copyright.license = _readString(iterator, GpxTagV11.license);

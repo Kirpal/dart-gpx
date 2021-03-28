@@ -8,30 +8,30 @@ import 'wpt.dart';
 /// turn points leading to a destination.
 class Rte {
   /// GPS name of route.
-  String name;
+  String? name;
 
   /// GPS comment for route.
-  String cmt;
+  String? cmt;
 
   /// Text description of route for user. Not sent to GPS.
-  String desc;
+  String? desc;
 
   /// Source of data. Included to give user some idea of reliability and
   /// accuracy of data.
-  String src;
+  String? src;
 
   /// Links to external information about the route.
   List<Link> links;
 
   /// GPS route number.
-  int number;
+  int? number;
 
   /// Type (classification) of route.
-  String type;
+  String? type;
 
   /// You can add extend GPX by adding your own elements from another schema
   /// here.
-  Map<String, String> extensions;
+  Map<String, String?> extensions;
 
   /// A list of route points.
   List<Wpt> rtepts;
@@ -42,11 +42,11 @@ class Rte {
       this.cmt,
       this.desc,
       this.src,
-      List<Link> links,
+      List<Link>? links,
       this.number,
       this.type,
-      Map<String, String> extensions,
-      List<Wpt> rtepts})
+      Map<String, String>? extensions,
+      List<Wpt>? rtepts})
       : links = links ?? [],
         extensions = extensions ?? <String, String>{},
         rtepts = rtepts ?? [];

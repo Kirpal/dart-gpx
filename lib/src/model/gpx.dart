@@ -19,7 +19,7 @@ class Gpx {
   String creator = '';
 
   /// Metadata about the file.
-  Metadata metadata;
+  Metadata? metadata;
 
   /// A list of waypoints.
   List<Wpt> wpts = [];
@@ -32,7 +32,7 @@ class Gpx {
 
   /// You can add extend GPX by adding your own elements from another schema
   /// here.
-  Map<String, String> extensions = {};
+  Map<String, String?> extensions = {};
 
   @override
   // ignore: type_annotate_public_apis
@@ -77,6 +77,6 @@ class Gpx {
 class Pt {
   double lat = 0;
   double lon = 0;
-  double ele;
-  DateTime time;
+  double? ele;
+  DateTime? time;
 }

@@ -7,30 +7,30 @@ import 'trkseg.dart';
 /// Trk represents a track - an ordered list of points describing a path.
 class Trk {
   /// GPS name of track.
-  String name;
+  String? name;
 
   /// GPS comment for track.
-  String cmt;
+  String? cmt;
 
   /// User description of track.
-  String desc;
+  String? desc;
 
   /// Source of data. Included to give user some idea of reliability and
   /// accuracy of data.
-  String src;
+  String? src;
 
   /// Links to external information about the track.
   List<Link> links;
 
   /// GPS track number.
-  int number;
+  int? number;
 
   /// Type (classification) of track.
-  String type;
+  String? type;
 
   /// You can add extend GPX by adding your own elements from another schema
   /// here.
-  Map<String, String> extensions;
+  Map<String, String?> extensions;
 
   /// A Track Segment holds a list of Track Points which are logically connected
   /// in order. To represent a single GPS track where GPS reception was lost, or
@@ -44,11 +44,11 @@ class Trk {
       this.cmt,
       this.desc,
       this.src,
-      List<Link> links,
+      List<Link>? links,
       this.number,
       this.type,
-      Map<String, String> extensions,
-      List<Trkseg> trksegs})
+      Map<String, String>? extensions,
+      List<Trkseg>? trksegs})
       : links = links ?? [],
         extensions = extensions ?? <String, String>{},
         trksegs = trksegs ?? [];
